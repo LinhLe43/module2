@@ -17,10 +17,13 @@ insert into infomation value (3, 'Bui Viet Anh', 27, 'vanh96@gmail.com');
 insert into infomation value (4, 'Nhat Long', 27, 'nhlong96@gmail.com');
 
 select * from infomation;
+
 select fullName, email from infomation where id = 2;
+
 select id from infomation where fullName like '%Bui%';
 
 update infomation set fullName = "Bui Long" where id = 4;
+
 delete from infomation where email ="vanh96@gmail.com";
 
 alter table infomation
@@ -33,3 +36,5 @@ update infomation set address = "HN" where id = 1;
 
 alter table infomation
 drop column address;
+
+drop database students;
