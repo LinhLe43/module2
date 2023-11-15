@@ -36,3 +36,10 @@ div.gallery {
     margin: 6px 0;
   }
 }
+
+@media only screen and (max-with: 500px) {
+  .responsive {
+    width: calc(100%);
+    margin: 6px 0;
+  }
+}
