@@ -22,9 +22,12 @@ public class CalculatorServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         float firstNumber = Float.parseFloat(req.getParameter("firstNumber"));
         float secondNumber = Float.parseFloat(req.getParameter("secondNumber"));
-        char operation = req.getParameter("operation").charAt(0);
+        char operation = req.getParameter("operator").charAt(0);
         float result = Calculator.calculate(firstNumber, secondNumber, operation);
         req.setAttribute("result", result);
+        req.setAttribute("firstNumber", firstNumber);
+        req.setAttribute("secondNumber", secondNumber);
+        req.setAttribute("operation", operation);
         RequestDispatcher dispatcher = req.getRequestDispatcher("result.jsp");
         dispatcher.forward(req, resp);
     }

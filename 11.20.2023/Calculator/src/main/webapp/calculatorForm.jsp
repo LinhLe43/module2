@@ -13,18 +13,33 @@
 </head>
 <body>
 <form action="/cal" method="post">
-    <input type="text" placeholder="Input first number" name="firstNumber">
-    <br>
-    <select name="operation">
-        <option value="+">Addition</option>
-        <option value="-">Subtraction</option>
-        <option value="*">Multiplication</option>
-        <option value="/">Division</option>
-    </select>
-    <br>
-    <input type="text" placeholder="Input second number" name="secondNumber">
-    <br>
-    <button>Calculate</button>
+    <fieldset>
+        <table>
+            <tr>
+                <td>First operand: </td>
+                <td><input name="firstNumber" type="text"/></td>
+            </tr>
+            <tr>
+                <td>Operator: </td>
+                <td>
+                    <select name="operator">
+                        <option value="+">Addition</option>
+                        <option value="-">Subtraction</option>
+                        <option value="*">Multiplication</option>
+                        <option value="/">Division</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Second operand: </td>
+                <td><input name="secondNumber" type="text"/></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Calculate"/></td>
+            </tr>
+        </table>
+    </fieldset>
 </form>
 </body>
 </html>
