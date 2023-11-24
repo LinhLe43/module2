@@ -12,7 +12,9 @@
 </head>
 <body>
 <h1>Thêm mới sinh viên</h1>
-<a href="http://localhost:8080/students?action=findAll">Quay lại trang chủ</a>
+<a href="http://localhost:8080/students?action=findAll">
+    <button>Quay lại trang chủ</button>
+</a>
 <br>
 <form action="students" method="post">
     <input type="hidden" name="action" value="create">

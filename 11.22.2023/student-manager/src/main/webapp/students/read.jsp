@@ -10,31 +10,36 @@
 <html>
 <head>
     <title>Title</title>
-    <style>
-        img {
-            width: 100px;
-            height: 100px;
-        }
-    </style>
+    <link rel="stylesheet" href="../style/style.css">
 </head>
 <body>
 <h1>Danh sách sinh viên</h1>
-<a href="http://localhost:8080/students?action=create">Thêm mới sinh viên</a>
+<a href="http://localhost:8080/students?action=create">
+    <button>Thêm mới sinh viên</button>
+</a>
 <br>
 <table border="1">
     <tr>
         <td>Id</td>
         <td>Name</td>
         <td>Image</td>
-        <td colspan="2">Action</td>
+        <td colspan="3">Action</td>
     </tr>
     <c:forEach var="item" items="${students}">
         <tr>
             <td>${item.id}</td>
             <td>${item.name}</td>
             <td><img src="${item.image}"></td>
-            <td><a href="http://localhost:8080/students?action=update&id=${item.id}"><button>Sửa</button></a></td>
-            <td><a href="http://localhost:8080/students?action=delete&id=${item.id}"><button>Xóa</button></a></td>
+            <td><a href="http://localhost:8080/students?action=update&id=${item.id}">
+                <button>Sửa</button>
+            </a></td>
+            <td><a href="http://localhost:8080/students?action=delete&id=${item.id}">
+                <button>Xóa</button>
+            </a></td>
+            <td><a href="http://localhost:8080/students?action=view&id=${item.id}">
+                <button>Xem chi tiết</button>
+            </a>
+            </td>
         </tr>
     </c:forEach>
 </table>

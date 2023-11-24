@@ -32,6 +32,12 @@ public class StudentServlet extends HttpServlet {
             case "update":
                 showUpdateForm(req, resp);
                 break;
+            case "view":
+                showView(req, resp);
+                break;
+            case "findByName":
+                RequestDispatcher dispatcher = req.getRequestDispatcher("students/findByName.jsp");
+                dispatcher.forward(req, resp);
         }
     }
 
@@ -50,7 +56,7 @@ public class StudentServlet extends HttpServlet {
     private void showDeleteForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher = req.getRequestDispatcher("students/delete.jsp");
         int idDelete = Integer.parseInt(req.getParameter("id"));
-        Student studentDelete = studentService.getStudent(idDelete);
+        Student studentDelete = studentService.getStudentById(idDelete);
         req.setAttribute("student", studentDelete);
         dispatcher.forward(req, resp);
     }
@@ -58,8 +64,16 @@ public class StudentServlet extends HttpServlet {
     private void showUpdateForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher = req.getRequestDispatcher("students/update.jsp");
         int idUpdate = Integer.parseInt(req.getParameter("id"));
-        Student updateStudent = studentService.getStudent(idUpdate);
+        Student updateStudent = studentService.getStudentById(idUpdate);
         req.setAttribute("student", updateStudent);
+        dispatcher.forward(req, resp);
+    }
+
+    private void showView(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        RequestDispatcher dispatcher = req.getRequestDispatcher("students/view.jsp");
+        int idView = Integer.parseInt(req.getParameter("id"));
+        Student studentView = studentService.getStudentById(idView);
+        req.setAttribute("student", studentView);
         dispatcher.forward(req, resp);
     }
 
@@ -74,13 +88,8 @@ public class StudentServlet extends HttpServlet {
                 delete(req, resp);
                 break;
             case "update":
-                int idUpdate = Integer.parseInt(req.getParameter("oldId"));
-                int id = Integer.parseInt(req.getParameter("newId"));
-                String name = req.getParameter("name");
-                String image = req.getParameter("image");
-                Student newStudent = new Student(id, name, image);
-                studentService.edit(idUpdate, newStudent);
-                resp.sendRedirect("/students?action=findAll");
+                update(req, resp);
+                break;
         }
     }
 
@@ -92,9 +101,20 @@ public class StudentServlet extends HttpServlet {
         studentService.add(newStudent);
         resp.sendRedirect("/students?action=findAll");
     }
+
     private void delete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         int idDelete = Integer.parseInt(req.getParameter("id"));
         studentService.delete(idDelete);
+        resp.sendRedirect("/students?action=findAll");
+    }
+
+    private void update(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        int idUpdate = Integer.parseInt(req.getParameter("oldId"));
+        int id = Integer.parseInt(req.getParameter("newId"));
+        String name = req.getParameter("name");
+        String image = req.getParameter("image");
+        Student newStudent = new Student(id, name, image);
+        studentService.edit(idUpdate, newStudent);
         resp.sendRedirect("/students?action=findAll");
     }
 }

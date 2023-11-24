@@ -47,8 +47,21 @@ public class StudentService implements IService<Student> {
         return -1;
     }
 
-    public Student getStudent(int id) {
+    @Override
+    public List<Student> getByName(String name) {
+        List<Student> listProduct = new ArrayList<>();
+        for(Student student: studentList) {
+            if(student.getName().toLowerCase().contains(name.toLowerCase())) {
+                listProduct.add(student);
+            }
+        }
+        return listProduct;
+    }
+
+
+    public Student getStudentById(int id) {
         int index = findById(id);
         return studentList.get(index);
     }
+
 }
