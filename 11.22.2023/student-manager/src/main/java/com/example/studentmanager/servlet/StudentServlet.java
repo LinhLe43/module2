@@ -36,8 +36,7 @@ public class StudentServlet extends HttpServlet {
                 showView(req, resp);
                 break;
             case "search":
-                RequestDispatcher dispatcher = req.getRequestDispatcher("students/search.jsp");
-                dispatcher.forward(req, resp);
+                showSearchForm(req, resp);
                 break;
         }
     }
@@ -78,6 +77,11 @@ public class StudentServlet extends HttpServlet {
         dispatcher.forward(req, resp);
     }
 
+    private void showSearchForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        RequestDispatcher dispatcher = req.getRequestDispatcher("students/search.jsp");
+        dispatcher.forward(req, resp);
+    }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
@@ -92,11 +96,7 @@ public class StudentServlet extends HttpServlet {
                 update(req, resp);
                 break;
             case "search":
-                RequestDispatcher dispatcher = req.getRequestDispatcher("students/test.jsp");
-                String name = req.getParameter("name");
-                List<Student> students = studentService.getByName(name);
-                req.setAttribute("students", students);
-                dispatcher.forward(req, resp);
+                search(req, resp);
                 break;
         }
     }
@@ -124,6 +124,14 @@ public class StudentServlet extends HttpServlet {
         Student newStudent = new Student(id, name, image);
         studentService.edit(idUpdate, newStudent);
         resp.sendRedirect("/students?action=findAll");
+    }
+
+    private void search(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        RequestDispatcher dispatcher = req.getRequestDispatcher("students/searchResult.jsp");
+        String name = req.getParameter("name");
+        List<Student> students = studentService.getByName(name);
+        req.setAttribute("students", students);
+        dispatcher.forward(req, resp);
     }
 }
 
