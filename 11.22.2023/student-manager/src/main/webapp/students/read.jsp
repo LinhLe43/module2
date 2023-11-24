@@ -17,6 +17,9 @@
 <a href="http://localhost:8080/students?action=create">
     <button>Thêm mới sinh viên</button>
 </a>
+<a href="http://localhost:8080/students?action=search">
+    <button>Tìm kiếm sinh viên</button>
+</a>
 <br>
 <table border="1">
     <tr>

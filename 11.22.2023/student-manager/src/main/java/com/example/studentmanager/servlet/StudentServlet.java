@@ -35,9 +35,10 @@ public class StudentServlet extends HttpServlet {
             case "view":
                 showView(req, resp);
                 break;
-            case "findByName":
-                RequestDispatcher dispatcher = req.getRequestDispatcher("students/findByName.jsp");
+            case "search":
+                RequestDispatcher dispatcher = req.getRequestDispatcher("students/search.jsp");
                 dispatcher.forward(req, resp);
+                break;
         }
     }
 
@@ -89,6 +90,13 @@ public class StudentServlet extends HttpServlet {
                 break;
             case "update":
                 update(req, resp);
+                break;
+            case "search":
+                RequestDispatcher dispatcher = req.getRequestDispatcher("students/test.jsp");
+                String name = req.getParameter("name");
+                List<Student> students = studentService.getByName(name);
+                req.setAttribute("students", students);
+                dispatcher.forward(req, resp);
                 break;
         }
     }
