@@ -4,11 +4,15 @@ public class Student {
     private int id;
     private String name;
     private String image;
+    private String email;
+    private int age;
 
-    public Student(int id, String name, String image) {
+    public Student(int id, String name, String image, String email, int age) {
         this.id = id;
         this.name = name;
         this.image = image;
+        this.email = email;
+        this.age = age;
     }
 
     public int getId() {
@@ -33,5 +37,21 @@ public class Student {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 }

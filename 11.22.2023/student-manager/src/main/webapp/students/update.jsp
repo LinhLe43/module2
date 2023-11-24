@@ -25,6 +25,10 @@
     <br>
     <input type="text" name="image" value="${student.image}">
     <br>
+    <input type="text" name="email" value="${student.email}">
+    <br>
+    <input type="number" name="age" value="${student.age}">
+    <br>
     <button>Update</button>
 </form>
 </body>

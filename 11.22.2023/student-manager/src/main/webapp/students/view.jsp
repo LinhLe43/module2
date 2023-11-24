@@ -21,11 +21,15 @@
         <td>ID</td>
         <td>Tên</td>
         <td>Ảnh</td>
+        <td>Email</td>
+        <td>Age</td>
     </tr>
     <tr>
         <td>${student.id}</td>
         <td>${student.name}</td>
         <td><img src="${student.image}"></td>
+        <td>${student.email}</td>
+        <td>${student.age}</td>
     </tr>
 </table>
 </body>

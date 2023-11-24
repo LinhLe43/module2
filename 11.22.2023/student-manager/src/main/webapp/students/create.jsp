@@ -24,6 +24,10 @@
     <br>
     <input type="text" name="image" placeholder="Nhập link ảnh">
     <br>
+    <input type="text" name="email" placeholder="Nhập email">
+    <br>
+    <input type="number" name="age" placeholder="Nhập tuổi">
+    <br>
     <button>Add</button>
 </form>
 </body>

@@ -105,7 +105,9 @@ public class StudentServlet extends HttpServlet {
         int id = Integer.parseInt(req.getParameter("id"));
         String name = req.getParameter("name");
         String image = req.getParameter("image");
-        Student newStudent = new Student(id, name, image);
+        String email = req.getParameter("email");
+        int age = Integer.parseInt(req.getParameter("age"));
+        Student newStudent = new Student(id, name, image, email, age);
         studentService.add(newStudent);
         resp.sendRedirect("/students?action=findAll");
     }
@@ -121,7 +123,9 @@ public class StudentServlet extends HttpServlet {
         int id = Integer.parseInt(req.getParameter("newId"));
         String name = req.getParameter("name");
         String image = req.getParameter("image");
-        Student newStudent = new Student(id, name, image);
+        String email = req.getParameter("email");
+        int age = Integer.parseInt(req.getParameter("age"));
+        Student newStudent = new Student(id, name, image, email, age);
         studentService.edit(idUpdate, newStudent);
         resp.sendRedirect("/students?action=findAll");
     }
