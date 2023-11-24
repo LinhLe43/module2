@@ -27,10 +27,10 @@
             <td>${item.id}</td>
             <td>${item.name}</td>
             <td><img src="${item.image}"></td>
+            <td>${item.email}</td>
+            <td>${item.age}</td>
         </tr>
     </c:forEach>
-
 </table>
-
 </body>
 </html>
