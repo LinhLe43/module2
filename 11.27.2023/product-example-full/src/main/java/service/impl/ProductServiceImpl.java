@@ -32,12 +32,30 @@ public class ProductServiceImpl implements ProductService<Product> {
 
     @Override
     public void edit(int id, Product product) {
-
+        String sql = "update product set name = ?, price = ?, quantity = ?, idCategory = ? where id = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, product.getName());
+            preparedStatement.setDouble(2, product.getPrice());
+            preparedStatement.setInt(3, product.getQuantity());
+            preparedStatement.setInt(4, product.getCategory().getId());
+            preparedStatement.setInt(5, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public void delete(int id) {
-
+        String sql = "delete from product p where  p.id = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -62,5 +80,27 @@ public class ProductServiceImpl implements ProductService<Product> {
             throw new RuntimeException(e);
         }
         return products;
+    }
+
+    @Override
+    public Product getById(int id) {
+        Product product = null;
+        String sql = "select * from product where id =?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                String name = resultSet.getString("name");
+                Double price = resultSet.getDouble("price");
+                int quantity = resultSet.getInt("quantity");
+                int idCategory = resultSet.getInt("idCategory");
+                Category category = new Category(idCategory);
+                product = new Product(id, name, price, quantity, category);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return product;
     }
 }

@@ -18,8 +18,9 @@ import java.util.List;
 
 @WebServlet(name = "productController", value = "/products")
 public class ProductController extends HttpServlet {
-    private ProductService productService = new ProductServiceImpl();
-    private CategoryService categoryService = new CategoryServiceImpl();
+    private ProductServiceImpl productService = new ProductServiceImpl();
+    private CategoryServiceImpl categoryService = new CategoryServiceImpl();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
@@ -30,6 +31,17 @@ public class ProductController extends HttpServlet {
             case "create":
                 showCreate(req, resp);
                 break;
+            case "delete":
+                showDelete(req, resp);
+                break;
+            case "update":
+                RequestDispatcher dispatcher = req.getRequestDispatcher("product/update.jsp");
+                int updateId = Integer.parseInt(req.getParameter("id"));
+                Product updateProduct = productService.getById(updateId);
+                req.setAttribute("product", updateProduct);
+                List<Category> categories = categoryService.findAll();
+                req.setAttribute("categories", categories);
+                dispatcher.forward(req, resp);
         }
     }
 
@@ -47,19 +59,47 @@ public class ProductController extends HttpServlet {
         dispatcher.forward(req, resp);
     }
 
+    private void showDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        RequestDispatcher dispatcher = req.getRequestDispatcher("product/delete.jsp");
+        int idDelete = Integer.parseInt(req.getParameter("id"));
+        Product product = productService.getById(idDelete);
+        req.setAttribute("product", product);
+        dispatcher.forward(req, resp);
+    }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
         switch (action) {
             case "create":
+                create(req, resp);
+                break;
+            case "delete":
+                int idDelete = Integer.parseInt(req.getParameter("id"));
+                productService.delete(idDelete);
+                resp.sendRedirect("/products?action=home");
+                break;
+            case "update":
+                int idUpdate = Integer.parseInt(req.getParameter("id"));
                 String name = req.getParameter("name");
                 Double price = Double.valueOf(req.getParameter("price"));
-                int idCategory = Integer.parseInt(req.getParameter("idCategory"));
                 int quantity = Integer.parseInt(req.getParameter("quantity"));
+                int idCategory = Integer.parseInt(req.getParameter("idCategory"));
                 Category category = new Category(idCategory);
-                Product newProduct = new Product(name, price, quantity, category);
-                productService.add(newProduct);
+                Product updateProduct = new Product(name, price, quantity, category);
+                productService.edit(idUpdate, updateProduct);
                 resp.sendRedirect("/products?action=home");
         }
+    }
+
+    private void create(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String name = req.getParameter("name");
+        Double price = Double.valueOf(req.getParameter("price"));
+        int idCategory = Integer.parseInt(req.getParameter("idCategory"));
+        int quantity = Integer.parseInt(req.getParameter("quantity"));
+        Category category = new Category(idCategory);
+        Product newProduct = new Product(name, price, quantity, category);
+        productService.add(newProduct);
+        resp.sendRedirect("/products?action=home");
     }
 }
