@@ -36,9 +36,15 @@
             <td><a href="http://localhost:8080/students?action=update&id=${item.id}">
                 <button>Sửa</button>
             </a></td>
-            <td><a href="http://localhost:8080/students?action=delete&id=${item.id}">
-                <button>Xóa</button>
-            </a></td>
+            <form action="students" method="post">
+                <input type="hidden" name="action" value="delete">
+                <input type="hidden" name="id" value="${item.id}">
+                <td>
+                    <a href="http://localhost:8080/students?action=delete&id=${item.id}">
+                        <button>Xóa</button>
+                    </a>
+                </td>
+            </form>
             <td><a href="http://localhost:8080/students?action=view&id=${item.id}">
                 <button>Xem chi tiết</button>
             </a>
