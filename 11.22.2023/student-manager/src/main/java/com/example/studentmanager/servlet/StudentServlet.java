@@ -26,9 +26,6 @@ public class StudentServlet extends HttpServlet {
             case "create":
                 showCreateForm(req, resp);
                 break;
-            case "delete":
-                showDeleteForm(req, resp);
-                break;
             case "update":
                 showUpdateForm(req, resp);
                 break;
@@ -50,14 +47,6 @@ public class StudentServlet extends HttpServlet {
 
     private void showCreateForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher = req.getRequestDispatcher("students/create.jsp");
-        dispatcher.forward(req, resp);
-    }
-
-    private void showDeleteForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher dispatcher = req.getRequestDispatcher("students/delete.jsp");
-        int idDelete = Integer.parseInt(req.getParameter("id"));
-        Student studentDelete = studentService.getStudentById(idDelete);
-        req.setAttribute("student", studentDelete);
         dispatcher.forward(req, resp);
     }
 

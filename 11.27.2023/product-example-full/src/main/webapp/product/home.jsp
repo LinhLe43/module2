@@ -97,15 +97,15 @@
                         <td>${item.name}</td>
                         <td>${item.price}</td>
                         <td>${item.category.name}</td>
-                        <td>
-                            <a
-                                    href="http://localhost:8080/products?action=delete&id=${item.id}"
-                            >
-                                <button type="button" class="btn btn-outline-danger">
-                                    Xóa
-                                </button>
-                            </a>
-                        </td>
+                        <form action="products" method="post">
+                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" name="id" value="${item.id}">
+                            <td>
+                                    <button class="btn btn-outline-danger">
+                                        Xóa
+                                    </button>
+                            </td>
+                        </form>
                         <td>
                             <a
                                     href="http://localhost:8080/products?action=update&id=${item.id}"
